@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --clr-white: hsl(0, 0%, 100%);
+  --clr-cyan-400: hsl(189, 41%, 97%);
+  --clr-cyan-500: hsl(184, 14%, 56%);
+  --clr-cyan-600: hsl(186, 14%, 43%);
+  --clr-cyan-700: hsl(172, 67%, 45%);
+  --clr-cyan-800: hsl(183, 100%, 15%);
+
+  --fs-text: 15px;
+  --fs-buttons: 20px;
+  --fs-inputs: 24px;
+
+  --fw-400: 400;
+  --fw-700: 700;
+
+  --ff-primary: 'Space Mono', monospace;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
