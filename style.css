@@ -124,7 +124,7 @@ h1 {
   font-size: var(--fs-text);
 }
 
-.tip-btns {
+.tip-buttons {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.6rem;
@@ -132,12 +132,12 @@ h1 {
 }
 
 @media (min-width: 56.25em) {
-  .tip-btns {
+  .tip-buttons {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-.tip-btns > button {
+.tip-buttons > button {
   font-size: var(--fs-buttons);
   font-weight: var(--fw-700);
   color: var(--clr-white);
@@ -146,19 +146,19 @@ h1 {
   border-radius: var(--radius);
 }
 
-.tip-btns > button:hover {
+.tip-buttons > button:hover {
   color: var(--clr-cyan-700);
   background-color: var(--clr-cyan-400);
   cursor: pointer;
 }
 
-.tip-btns > button.clicked {
+.tip-buttons > button.clicked {
   color: var(--clr-cyan-800);
   background-color: var(--clr-cyan-700);
   cursor: pointer;
 }
 
-.tip-btns > input {
+.tip-buttons > input {
   color: var(--clr-cyan-600);
   font-size: var(--fs-buttons);
   font-weight: var(--fw-700);
