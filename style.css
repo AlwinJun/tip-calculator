@@ -159,7 +159,7 @@ h1 {
 }
 
 .tip-buttons > input {
-  color: var(--clr-cyan-600);
+  color: var(--clr-cyan-800);
   font-size: var(--fs-buttons);
   font-weight: var(--fw-700);
 }
