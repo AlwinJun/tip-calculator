@@ -44,7 +44,11 @@
       <!-- Tips and Bills -->
       <section class="tip-info flex">
         <div class="bill-amount">
-          <label for="bill"> Bill</label>
+          <div class="label-message">
+            <label for="bill"> Bill</label>
+            <p class="warning warning-bill"></p>
+          </div>
+
           <div class="bill-input">
             <input type="text" id="bill" placeholder="0" />
             <img src="/images/icon-dollar.svg" alt="dollar sign" />
@@ -58,11 +62,17 @@
           <button class="tip-btns" type="button" data-id="15">15%</button>
           <button class="tip-btns" type="button" data-id="25">25%</button>
           <button class="tip-btns" type="button" data-id="50">50%</button>
-          <input type="text" id="custom-tip" placeholder="Custom" />
+          <div class="custom-err">
+            <input type="text" id="custom-tip" placeholder="Custom" />
+            <p class="warning warning-custom"></p>
+          </div>
         </div>
 
         <div class="person-count">
-          <label for="person-count">Number of People</label>
+          <div class="label-message">
+            <label for="person-count">Number of People</label>
+            <p class="warning warning-count"></p>
+          </div>
           <div class="count-input">
             <input type="text" id="person-count" placeholder="1" />
             <img src="/images/icon-person.svg" alt="person icon" />

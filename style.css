@@ -238,3 +238,20 @@ h1 {
   background-color: var(--clr-cyan-300);
   cursor: pointer;
 }
+
+/* Input Warning */
+.label-message {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+p.warning {
+  color: red;
+  font-size: var(--fs-text);
+  font-family: var(--ff-primary);
+}
+
+input.warning-red {
+  border: 1px solid red;
+}
