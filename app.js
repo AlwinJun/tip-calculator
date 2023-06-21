@@ -1,5 +1,6 @@
 // console.log('test');
 
+// DOM elements
 const bill = document.getElementById('bill');
 const customTip = document.getElementById('custom-tip');
 const personCount = document.getElementById('person-count');
@@ -11,79 +12,74 @@ const warningBill = document.querySelector('.warning-bill');
 const warningCustom = document.querySelector('.warning-custom');
 const warningCount = document.querySelector('.warning-count');
 
+// Initial Value
 let billAmount = 0;
 let tip = 0;
 let numberOfPeople = 1;
 
-bill.addEventListener('keyup', (e) => {
-  billAmount = e.target.value;
-  billAmount = Number(billAmount);
-  validateInput(billAmount, bill, warningBill);
-  displayTipPerson();
-});
-
-customTip.addEventListener('keyup', (e) => {
-  removeTipBtnStyle();
-  tip = e.target.value;
-  tip = Number(tip);
-  validateInput(tip, customTip, warningCustom);
-  displayTipPerson();
-});
-
-personCount.addEventListener('keyup', (e) => {
-  numberOfPeople = e.target.value;
-  numberOfPeople = Number(numberOfPeople);
-  validateInput(numberOfPeople, personCount, warningCount);
-  displayTipPerson();
-});
-
-tipBtns.forEach((btn) => {
-  btn.addEventListener('click', (e) => {
-    customTip.value = '';
-    tip = e.target.dataset.id;
-    tip = Number(tip);
-
-    removeTipBtnStyle();
-
-    btn.classList.add('clicked');
-    displayTipPerson();
-  });
-});
-
+// Event Listeners
+bill.addEventListener('keyup', bills);
+customTip.addEventListener('keyup', customTips);
+personCount.addEventListener('keyup', personCounts);
+tipBtns.forEach((btn) => btn.addEventListener('click', tipButtons));
 resetBtn.addEventListener('click', resetTipCalculator);
 
+// Event Handlers
+function bills(e) {
+  billAmount = parseFloat(e.target.value);
+  validateInput(billAmount, bill, warningBill);
+  displayTipPerson();
+}
+
+function customTips(e) {
+  removeTipBtnStyle();
+  tip = parseFloat(e.target.value);
+  validateInput(tip, customTip, warningCustom);
+  displayTipPerson();
+}
+
+function personCounts(e) {
+  numberOfPeople = parseInt(e.target.value);
+  validateInput(numberOfPeople, personCount, warningCount);
+  displayTipPerson();
+}
+
+function tipButtons(e) {
+  customTip.value = '';
+  tip = parseFloat(e.target.dataset.id);
+  removeTipBtnStyle();
+  e.target.classList.add('clicked');
+  displayTipPerson();
+}
+
+// Utility Fucntion
 function validateInput(inputVal, inputEl, errMessage) {
-  //check if lesser than 0
-  if (inputVal <= 0) {
+  //check if lesser than 0 or not a number
+  if (inputVal <= 0 || isNaN(inputVal)) {
     inputEl.classList.add('warning-red');
-    errMessage.innerText = `Can't be  zero or less `;
+    errMessage.innerText =
+      inputVal <= 0 ? ` Can't be  zero or less ` : 'Numbers only';
+    // 1sec delay to show warning message
+    setTimeout(() => {
+      resetTipCalculator();
+    }, 1000);
   } else {
-    const regex = /\d+/;
-    //Check if not number
-    if (!regex.test(inputVal)) {
-      inputEl.classList.add('warning-red');
-      errMessage.innerText = 'Numbers only';
-      billAmount = 0;
-      tip = 0;
-      numberOfPeople = 1;
-    } else {
-      inputEl.classList.remove('warning-red');
-      errMessage.innerText = '';
-    }
+    inputEl.classList.remove('warning-red');
+    errMessage.innerText = '';
   }
 }
 
 function displayTipPerson() {
-  let tipAmount = billAmount * (tip / 100);
-  tipAmount = parseFloat(tipAmount.toFixed(2));
+  let tipAmount = parseFloat(billAmount * (tip / 100).toFixed(2));
   let totalAmount = billAmount + tipAmount;
-  let tipPerPerson = tipAmount / numberOfPeople;
-  tipPerPerson = parseFloat(tipPerPerson.toFixed(3).slice(0, -1)); //slice the 3rd decimal
+  let tipPerPerson = parseFloat(
+    (tipAmount / numberOfPeople).toFixed(3).slice(0, -1)
+  ); //slice the 3rd decimal
 
-  tipPerson.innerText = '$' + tipPerPerson;
+  tipPerson.innerText = `$${tipPerPerson}`;
 
   let total = totalAmount / numberOfPeople;
-  tipTotal.innerText = '$' + parseFloat(total.toFixed(2));
+  tipTotal.innerText = `$${parseFloat(total.toFixed(2))}`;
 }
 
 function resetTipCalculator() {
