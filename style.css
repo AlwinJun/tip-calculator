@@ -158,7 +158,7 @@ h1 {
   cursor: pointer;
 }
 
-.tip-buttons > input {
+.tip-buttons input {
   color: var(--clr-cyan-800);
   font-size: var(--fs-buttons);
   font-weight: var(--fw-700);
