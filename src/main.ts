@@ -2,21 +2,21 @@ import './style.css';
 // console.log('test');
 
 // DOM elements
-const bill = document.getElementById('bill');
-const customTip = document.getElementById('custom-tip');
-const personCount = document.getElementById('person-count');
-const tipBtns = document.querySelectorAll('.tip-btns');
-const tipPerson = document.getElementById('tip-person');
-const tipTotal = document.getElementById('tip-total');
-const resetBtn = document.getElementById('reset');
-const warningBill = document.querySelector('.warning-bill');
-const warningCustom = document.querySelector('.warning-custom');
-const warningCount = document.querySelector('.warning-count');
+const bill = document.getElementById('bill') as HTMLInputElement;
+const customTip = document.getElementById('custom-tip') as HTMLInputElement;
+const personCount = document.getElementById('person-count') as HTMLInputElement;
+const tipBtns = document.querySelectorAll('.tip-btns') as NodeListOf<HTMLButtonElement>;
+const tipPerson = document.getElementById('tip-person') as HTMLDivElement;
+const tipTotal = document.getElementById('tip-total') as HTMLDivElement;
+const resetBtn = document.getElementById('reset') as HTMLButtonElement;
+const warningBill = document.querySelector('.warning-bill') as HTMLParagraphElement;
+const warningCustom = document.querySelector('.warning-custom') as HTMLParagraphElement;
+const warningCount = document.querySelector('.warning-count') as HTMLParagraphElement;
 
 // Initial Value
-let billAmount = 0;
-let tip = 0;
-let numberOfPeople = 1;
+let billAmount: number = 0;
+let tip: number = 0;
+let numberOfPeople: number = 1;
 
 // Event Listeners
 bill.addEventListener('keyup', bills);
@@ -26,35 +26,40 @@ tipBtns.forEach((btn) => btn.addEventListener('click', tipButtons));
 resetBtn.addEventListener('click', resetTipCalculator);
 
 // Event Handlers
-function bills(e) {
-  billAmount = parseFloat(e.target.value);
+function bills(e: Event): void {
+  billAmount = parseFloat((e.target as HTMLInputElement).value);
   validateInput(billAmount, bill, warningBill);
   displayTipPerson();
 }
 
-function customTips(e) {
+function customTips(e: Event): void {
   removeTipBtnStyle();
-  tip = parseFloat(e.target.value);
+  tip = parseFloat((e.target as HTMLInputElement).value);
   validateInput(tip, customTip, warningCustom);
   displayTipPerson();
 }
 
-function personCounts(e) {
-  numberOfPeople = parseInt(e.target.value);
+function personCounts(e: Event): void {
+  numberOfPeople = parseInt((e.target as HTMLInputElement).value);
   validateInput(numberOfPeople, personCount, warningCount);
   displayTipPerson();
 }
 
-function tipButtons(e) {
+function tipButtons(e: Event): void {
+  const target = e.target as HTMLInputElement;
   customTip.value = '';
-  tip = parseFloat(e.target.dataset.id);
+
+  if (target.dataset.id) {
+    tip = parseFloat(target.dataset.id);
+  }
+
   removeTipBtnStyle();
-  e.target.classList.add('clicked');
+  target.classList.add('clicked');
   displayTipPerson();
 }
 
 // Utility Fucntion
-function validateInput(inputVal, inputEl, errMessage) {
+function validateInput(inputVal: number, inputEl: HTMLInputElement, errMessage: HTMLParagraphElement): void {
   //check if lesser than 0 or not a number
   if (inputVal <= 0 || isNaN(inputVal)) {
     inputEl.classList.add('warning-red');
@@ -70,13 +75,13 @@ function validateInput(inputVal, inputEl, errMessage) {
 }
 
 function displayTipPerson() {
-  let tipAmount = parseFloat(billAmount * (tip / 100).toFixed(2));
-  let totalAmount = billAmount + tipAmount;
-  let tipPerPerson = parseFloat((tipAmount / numberOfPeople).toFixed(3).slice(0, -1)); //slice the 3rd decimal
+  let tipAmount: number = billAmount * parseFloat((tip / 100).toFixed(2));
+  let totalAmount: number = billAmount + tipAmount;
+  let tipPerPerson: number = parseFloat((tipAmount / numberOfPeople).toFixed(3).slice(0, -1)); //slice the 3rd decimal
 
   tipPerson.innerText = `$${tipPerPerson}`;
 
-  let total = totalAmount / numberOfPeople;
+  let total: number = totalAmount / numberOfPeople;
   tipTotal.innerText = `$${parseFloat(total.toFixed(2))}`;
 }
 
